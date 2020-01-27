@@ -5,7 +5,7 @@ import os.path
 from algorithm import PixelData
 
 def main():
-	filename = raw_input("Please Enter the name of the png file (with extension)")
+	filename = input("Please Enter the name of the png file (with extension)")
 	process_file(filename)
 
 def process_file(filename):

@@ -6,8 +6,8 @@ from path import Path
 
 # This generates all the coordinates from 0 to width and 0 to height i.e. it creates a walk over all pixels
 def coordinates(size):
-	for y in xrange(size[1]): # We use xrange as we don't want all the numbers from 0 to width in memory
-		for x in xrange(size[0]):
+	for y in range(size[1]):
+		for x in range(size[0]):
 			yield (x, y) # We use yield because this number might be too large to store in memory. We are better off, generating it as we need them
 
 # Returns distance between two points
@@ -36,21 +36,21 @@ class PixelData(object):
 	def depixelize(self):
 		
 		self.create_pixel_graph()
-		print "graph done"
+		print("graph done")
 		self.remove_diagonals()
-		print "removed diagonals"
+		print("removed diagonals")
 		self.create_grid_graph()
-		print "grid graph done"
+		print("grid graph done")
 		self.deform_grid()
-		print "deformed graph done"
+		print("deformed graph done")
 		self.create_shapes()
-		print "made shapes"
+		print("made shapes")
 		self.get_boundaries()
-		print "Obtained boundaries"
+		print("Obtained boundaries")
 		self.add_shape_boundaries()
-		print "shaped boundaries"
+		print("shaped boundaries")
 		self.smooth_splines()
-		print "smoothed splines"
+		print("smoothed splines")
 
 	def pixel(self, x, y):
 		# The pixel data is loaded in the [y][x] format and not the [x][y]. Careful, while coding.
@@ -236,7 +236,7 @@ class PixelData(object):
 			for neighbor in self.pixel_graph.neighbors(pixel):
 				edge = corners & self.pixel_graph.node[neighbor]['corners']
 				if len(edge) != 2: # If the number of edges is not 2
-					print edge
+					print(edge)
 				elif self.outlines_graph.has_edge(*edge): # Remove the internal edges in the outlines graph
 					self.outlines_graph.remove_edge(*edge)
 		for node in list(networkx.isolates(self.outlines_graph)):
@@ -265,10 +265,9 @@ class PixelData(object):
 
 	def smooth_splines(self):
 		# This function iterates through all the paths and tries to smooth each of them.
-		print "Smoothing splines..."
+		print("Smoothing splines...")
 		for i, path in enumerate(self.paths.values()):
-			print " * %s/%s (%s, %s)..." % (
-				i + 1, len(self.paths), len(path.shapes), len(path.path))
+			print(" * {}/{} ({}, {})...".format(i + 1, len(self.paths), len(path.shapes), len(path.path)))
 			if len(path.shapes) == 1:
 				path.smooth = path.spline.copy()
 				continue

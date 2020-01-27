@@ -110,7 +110,7 @@ class BSpline(object):
 
 		interval = (span[1] - span[0]) / intervals
 		result = (func(span[0]) + func(span[1])) / 2
-		for i in xrange(1, intervals):
+		for i in range(1, intervals):
 			result += func(span[0] + i * interval)
 		result *= interval
 
@@ -180,7 +180,7 @@ def Curve2Closed_BSpline(path, degree=2):
 	# Returns the closed b-pline that is fit to the path given
 	points = path + path[:degree]
 	m = len(points) + degree
-	KnotVector = [float(i) / m for i in xrange(m + 1)]
+	KnotVector = [float(i) / m for i in range(m + 1)]
 
 	return Closed_BSpline(KnotVector, points, degree)
 
